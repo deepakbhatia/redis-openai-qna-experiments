@@ -1,4 +1,4 @@
-FROM python:3.9.10-slim-buster
+FROM python:3.9.10-slim-bullseye
 
 RUN apt-get update && apt-get install python-tk python3-tk tk-dev -y
 
