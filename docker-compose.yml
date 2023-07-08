@@ -8,8 +8,12 @@ services:
       - ./app:/app
     ports:
       - "8080:80"
-    env_file:
-      - .env
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_TYPE=openai
+      - OPENAI_COMPLETIONS_ENGINE=text-davinci-003
+      - OPENAI_EMBEDDINGS_ENGINE=text-embedding-ada-002
+      - TOKENIZERS_PARALLELISM=false
     depends_on:
       redis:
         condition: service_healthy
@@ -17,8 +21,10 @@ services:
     image: redis/redis-stack-server:latest
     ports:
       - "6379:6379"
-    env_file:
-      - .env
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CACHE_TYPE=standard
     volumes:
         - redis_data:/data
     healthcheck:
